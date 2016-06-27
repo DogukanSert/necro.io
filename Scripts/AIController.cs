@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour {
 
         for (int i =0; i<Random.Range(1,15); i++)
         {
-             Bots.Add((Instantiate(Bot, new Vector3(0, 0, 0),Quaternion.identity)) as GameObject);
+             Bots.Add((Instantiate(Bot, new Vector3(Random.Range(1,6), Random.Range(1, 6), Random.Range(1, 6)), Quaternion.identity)) as GameObject);
         }
 
     }
