@@ -12,7 +12,7 @@ public class AIController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        for (int i =0; i<Random.Range(1,15); i++)
+        for (int i =0; i<10; i++)
         {
              Bots.Add((Instantiate(Bot, new Vector3(Random.Range(1,6), Random.Range(1, 6), Random.Range(1, 6)), Quaternion.identity)) as GameObject);
         }
