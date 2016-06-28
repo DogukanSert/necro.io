@@ -11,6 +11,9 @@ public class BotController : MonoBehaviour {
     public GameObject Skeleton;
     private int skeletonCount;
     private bool atWar;
+    public float attackPoint;
+    public float attackSpeed;
+    public float healthPoint;
 
     // Use this for initialization
     void Start () {
@@ -62,7 +65,6 @@ public class BotController : MonoBehaviour {
         if(other.CompareTag("PlayerSkeleton") || other.CompareTag("Player") )
         {
             atWar = true;
-            //War is To Do
 
         }
     }
