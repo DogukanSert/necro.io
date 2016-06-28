@@ -10,21 +10,22 @@ public class BotController : MonoBehaviour {
     public List<GameObject> Skeletons;
     public GameObject Skeleton;
     private int skeletonCount;
-    private bool atWar;
+    
     public float attackPoint;
     public float attackSpeed;
     public float healthPoint;
 
     // Use this for initialization
     void Start () {
-        atWar = false;
-        skeletonCount = Random.Range(1, 15);
-        way = new Vector2(Random.Range(-6, 6), Random.Range(-6, 6));
+        
+
+        skeletonCount = Random.Range(10, 15);
+        way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
         for (int i = 0; i < skeletonCount; i++)
         {
             Skeletons.Add((Instantiate(Skeleton, new Vector2(transform.position.x, transform.position.y), Quaternion.identity)) as GameObject);
-            Skeletons[i].tag = "Respawn";
-           
+            Skeletons[i].tag = this.name;
+
         }
     }
 	
@@ -32,40 +33,43 @@ public class BotController : MonoBehaviour {
 	void Update () {
 
         //The AI is at peace movement
-        if (!atWar)
-        { 
-                for (int i = 0; i < skeletonCount; i++)
-                 {
-                    if(Vector3.Distance(Skeletons[i].transform.position,transform.position) > 1)
-                    { 
-                        Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, transform.position,  speed * speedRatio * Time.deltaTime);
-                        if ((transform.position.x == way.x && transform.position.y == way.y))
-                        {
-                            way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
-                        }
-                    }
-                    else
+       
+        for (int i = 0; i < skeletonCount; i++)
+        {
+            if (!(Skeletons[i].GetComponent<SkeletonController>().atWar))
+            {
+                if (Vector3.Distance(Skeletons[i].transform.position,transform.position) > 1)
+                { 
+                    Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, transform.position,  speed * speedRatio * Time.deltaTime);
+                    if ((transform.position.x == way.x && transform.position.y == way.y))
                     {
-                        Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, way, speed * Time.deltaTime);
-                        if ((transform.position.x == way.x && transform.position.y == way.y))
-                        {
-                            way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
-                        }
+                        way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+                    }
+                }
+                else
+                {
+                    Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, way, speed * Time.deltaTime);
+                    if ((transform.position.x == way.x && transform.position.y == way.y))
+                    {
+                        way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+                    }
                 }
 
             }
-            transform.position = Vector2.MoveTowards(transform.position, way, speed * Time.deltaTime);
+            else
+            {
+                for (int j=0; j<skeletonCount; j++)
+                {
+                    Skeletons[i].transform.position = Vector2.MoveTowards(transform.position, Skeletons[j].GetComponent<SkeletonController>().collided.transform.position, speed * Time.deltaTime);
+                }
+            }
 
         }
-        //The AI is at war movement
-        
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("PlayerSkeleton") || other.CompareTag("Player") )
-        {
-            atWar = true;
+        transform.position = Vector2.MoveTowards(transform.position, way, speed * Time.deltaTime);
+            
 
-        }
     }
+    
+
+    
 }
