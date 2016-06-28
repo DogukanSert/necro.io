@@ -33,7 +33,7 @@ public class BotController : MonoBehaviour {
         { 
                 for (int i = 0; i < skeletonCount; i++)
                  {
-                    if(Vector3.Distance(Skeletons[i].transform.position,transform.position) < 0.1)
+                    if(Vector3.Distance(Skeletons[i].transform.position,transform.position) > 1)
                     { 
                         Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, transform.position,  speed * speedRatio * Time.deltaTime);
                         if ((transform.position.x == way.x && transform.position.y == way.y))
