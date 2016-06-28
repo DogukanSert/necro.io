@@ -16,23 +16,18 @@ public class Necromancer : MonoBehaviour
 	void FixedUpdate() {
         if (Input.GetMouseButton(0))
         {
-            Vector3 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            origin[2] = 0;
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse[2] = 0;
 
-            hit = Physics2D.Raycast(origin, Vector2.zero);
+            hit = Physics2D.Raycast(mouse, Vector2.zero);
 
             if (hit.collider.CompareTag("Floor"))
             {
-                
-                Vector3 pos = Vector3.MoveTowards(transform.position, origin, 9);
-                transform.position += pos * Time.deltaTime;
+
+                Vector3 difference = mouse - transform.position;
+                transform.Translate(difference * Time.fixedDeltaTime);
                 //transform.Translate(origin * Time.fixedDeltaTime);
             }
         }
 	}
-
-    void LateUpdate()
-    {
-        newPosition = transform.position;
-    }
 }

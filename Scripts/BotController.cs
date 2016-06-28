@@ -17,6 +17,7 @@ public class BotController : MonoBehaviour {
         for (int i = 0; i < skeletonCount; i++)
         {
             Skeletons.Add((Instantiate(Skeleton, new Vector2(transform.position.x, transform.position.y), Quaternion.identity)) as GameObject);
+            Skeletons[i].tag = "Respawn";
            
         }
     }
