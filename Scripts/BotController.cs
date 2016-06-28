@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BotController : MonoBehaviour {
+    public float speed;
+
     private Vector2 way;
     public List<GameObject> Skeletons;
     public GameObject Skeleton;
@@ -26,7 +28,7 @@ public class BotController : MonoBehaviour {
         {
             if(Vector3.Distance(Skeletons[i].transform.position,transform.position) < 0.1)
             { 
-                Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, transform.position,  3f*Time.deltaTime);
+                Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, transform.position,  speed * 1.2f *Time.deltaTime);
                 if ((transform.position.x == way.x && transform.position.y == way.y))
                 {
                     way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
@@ -34,15 +36,15 @@ public class BotController : MonoBehaviour {
             }
             else
             {
-                Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, way, 1.8f * Time.deltaTime);
-                if ((transform.position.x == way.x && transform.position.y == way.y) )
+                Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, way, speed * Time.deltaTime);
+                if ((transform.position.x == way.x && transform.position.y == way.y))
                 {
                     way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
                 }
             }
 
         }
-        transform.position = Vector2.MoveTowards(transform.position, way, 1.8f * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, way, speed * Time.deltaTime);
 
 
     }
