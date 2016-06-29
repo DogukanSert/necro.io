@@ -19,12 +19,12 @@ public class BotController : MonoBehaviour {
     void Start () {
         
 
-        skeletonCount = Random.Range(10, 15);
+        skeletonCount = Random.Range(5, 19);
         way = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
         for (int i = 0; i < skeletonCount; i++)
         {
-            Skeletons.Add((Instantiate(Skeleton, new Vector2(transform.position.x, transform.position.y), Quaternion.identity)) as GameObject);
-            Skeletons[i].tag = this.name;
+            Skeletons.Add((Instantiate(Skeleton, new Vector2(transform.position.x+ Random.Range(1,5), transform.position.y+ Random.Range(1, 5)), Quaternion.identity)) as GameObject);
+            Skeletons[i].tag = "Skeleton" + this.name;
 
         }
     }
@@ -58,10 +58,10 @@ public class BotController : MonoBehaviour {
             }
             else
             {
-                for (int j=0; j<skeletonCount; j++)
-                {
-                    Skeletons[i].transform.position = Vector2.MoveTowards(transform.position, Skeletons[j].GetComponent<SkeletonController>().collided.transform.position, speed * Time.deltaTime);
-                }
+                //for (int j = 0; j < skeletonCount; j++)
+                //{
+                //    Skeletons[i].transform.position = Vector2.MoveTowards(Skeletons[i].transform.position, Skeletons[j].GetComponent<SkeletonController>().collided.transform.position, speed * Time.deltaTime);
+                //}
             }
 
         }
